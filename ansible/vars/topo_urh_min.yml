@@ -8,19 +8,19 @@ topology:
       vlans:
         - 12
       vm_offset: 1
-    ARISTA03RWA:
+    ARISTA01LRH:
       vlans:
         - 13
       vm_offset: 2
-    ARISTA01LRH:
+    ARISTA02LRH:
       vlans:
         - 24
       vm_offset: 3
-    ARISTA02LRH:
+    ARISTA03LRH:
       vlans:
         - 25
       vm_offset: 4
-    ARISTA03LRH:
+    ARISTA04LRH:
       vlans:
         - 34
       vm_offset: 5
@@ -97,29 +97,6 @@ configuration:
     bp_interface:
       ipv4: 10.10.246.2/24
       ipv6: fc0a::4/64
-  ARISTA03RWA:
-    properties:
-      - common
-      - core
-    bgp:
-      peer_in_bgp_confed: true
-      asn: 65200
-      peers:
-        64915:
-          - 10.0.0.4
-          - fc00::9
-    interfaces:
-      Loopback0:
-        ipv4: 100.1.0.3/32
-        ipv6: 2064:100::3/128
-      Ethernet1:
-        lacp: 1
-      Port-Channel1:
-        ipv4: 10.0.0.5/31
-        ipv6: fc00::a/126
-    bp_interface:
-      ipv4: 10.10.246.3/24
-      ipv6: fc0a::6/64
   ARISTA01LRH:
     properties:
       - common
@@ -192,3 +169,27 @@ configuration:
     bp_interface:
       ipv4: 10.10.246.103/24
       ipv6: fc0a::6a/64
+  ARISTA04LRH:
+    properties:
+      - common
+      - leaf
+    bgp:
+      asn: 64981
+      confed_asn: 64915
+      confed_peers: "64983"
+      peers:
+        64983:
+          - 10.0.0.106
+          - fc00::19
+    interfaces:
+      Loopback0:
+        ipv4: 100.1.0.54/32
+        ipv6: 2064:100::36/128
+      Ethernet1:
+        lacp: 1
+      Port-Channel1:
+        ipv4: 10.0.0.107/31
+        ipv6: fc00::1a/126
+    bp_interface:
+      ipv4: 10.10.246.104/24
+      ipv6: fc0a::6c/64
